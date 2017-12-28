@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -59,11 +60,11 @@ public class InputDialog extends DialogFragment {
                 else
                 {
                     Gson gson = new Gson();
-                    data1 = gson.fromJson(str, data1.getClass());
+                    data1 = gson.fromJson(str, new TypeToken<ArrayList<String>>() {}.getType());
                 }
                 try {
                     data1.add(ed.getText().toString());
-                    FileWriter fw = new FileWriter(myfile, true);
+                    FileWriter fw = new FileWriter(myfile);
                     BufferedWriter bw = new BufferedWriter(fw);
                     Gson gson = new Gson();
                     bw.write(gson.toJson(data1));
@@ -72,7 +73,7 @@ public class InputDialog extends DialogFragment {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
+                dismiss();
                 // Toast.makeText(getActivity(), "Click", Toast.LENGTH_SHORT).show();
             }
         });
