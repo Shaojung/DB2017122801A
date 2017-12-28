@@ -20,6 +20,7 @@ import java.io.IOException;
  */
 
 public class InputDialog extends DialogFragment {
+    EditText ed;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +31,10 @@ public class InputDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         final View view = getActivity().getLayoutInflater().inflate(R.layout.myinputdialog, null);
         Button btn = view.findViewById(R.id.button);
+        ed = view.findViewById(R.id.editText);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText ed = view.findViewById(R.id.editText);
                 File myfile = new File(getActivity().getFilesDir(), "myfile.txt");
                 try {
                     FileWriter fw = new FileWriter(myfile, true);
