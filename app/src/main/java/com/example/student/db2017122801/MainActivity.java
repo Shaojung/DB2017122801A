@@ -7,6 +7,9 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -31,26 +34,30 @@ public class MainActivity extends AppCompatActivity {
 
     public void reloadData()
     {
-        ArrayList<String> mylist = new ArrayList();
-        File myfile = new File(getFilesDir(), "myfile.txt");
+        ArrayList<String> data1 = new ArrayList();
+        File myfile = new File(getFilesDir(), "data1.txt");
+
+        String str = "";
         try {
             FileReader fr = new FileReader(myfile);
             BufferedReader br = new BufferedReader(fr);
-            String str;
-            while ((str = br.readLine()) != null)
-            {
-                mylist.add(str);
-            }
-
-            br.close();
-            fr.close();
+            str = br.readLine();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        if (str.equals(""))
+        {
+            data1 = new ArrayList<String>();
+        }
+        else
+        {
+            Gson gson = new Gson();
+            data1 = gson.fromJson(str, new TypeToken<ArrayList<String>>() {}.getType());
         }
 
         ListView lv = (ListView) findViewById(R.id.listview);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1, mylist);
+                android.R.layout.simple_list_item_1, data1);
         lv.setAdapter(adapter);
     }
 
