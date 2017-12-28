@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
             FileReader fr = new FileReader(myfile);
             BufferedReader br = new BufferedReader(fr);
             String str;
-            if ((str = br.readLine()) != null)
+            while ((str = br.readLine()) != null)
             {
                 mylist.add(str);
             }
