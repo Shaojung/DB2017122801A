@@ -23,7 +23,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.menu_add)
         {
-            
+            InputDialog dialog = new InputDialog();
+            dialog.show(getFragmentManager(), "InputDialog");
         }
         return super.onOptionsItemSelected(item);
     }
