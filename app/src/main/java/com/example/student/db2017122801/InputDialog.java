@@ -7,7 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * Created by student on 2017/12/28.
@@ -22,12 +28,24 @@ public class InputDialog extends DialogFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        View view = getActivity().getLayoutInflater().inflate(R.layout.myinputdialog, null);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.myinputdialog, null);
         Button btn = view.findViewById(R.id.button);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Click", Toast.LENGTH_SHORT).show();
+                EditText ed = view.findViewById(R.id.editText);
+                File myfile = new File(getActivity().getFilesDir(), "myfile.txt");
+                try {
+                    FileWriter fw = new FileWriter(myfile, true);
+                    BufferedWriter bw = new BufferedWriter(fw);
+                    bw.write(ed.getText().toString() + "\n");
+                    bw.close();
+                    fw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                // Toast.makeText(getActivity(), "Click", Toast.LENGTH_SHORT).show();
             }
         });
         return view;
