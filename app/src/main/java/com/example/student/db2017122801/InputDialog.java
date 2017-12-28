@@ -1,6 +1,7 @@
 package com.example.student.db2017122801;
 
 import android.app.DialogFragment;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -59,4 +60,9 @@ public class InputDialog extends DialogFragment {
 
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        ((MainActivity) getActivity()).reloadData();
+    }
 }

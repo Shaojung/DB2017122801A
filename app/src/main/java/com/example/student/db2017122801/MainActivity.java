@@ -26,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        reloadData();
+    }
+
+    public void reloadData()
+    {
         ArrayList<String> mylist = new ArrayList();
         File myfile = new File(getFilesDir(), "myfile.txt");
         try {
@@ -45,9 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
         ListView lv = (ListView) findViewById(R.id.listview);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-            android.R.layout.simple_list_item_1, mylist);
+                android.R.layout.simple_list_item_1, mylist);
         lv.setAdapter(adapter);
-
     }
 
     @Override
