@@ -39,7 +39,7 @@ public class InputDialog extends DialogFragment {
                 try {
                     FileWriter fw = new FileWriter(myfile, true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(ed.getText().toString() + "\n");
+                    bw.write(ed.getText().toString() + "\r\n");
                     bw.close();
                     fw.close();
                 } catch (IOException e) {
@@ -58,4 +58,5 @@ public class InputDialog extends DialogFragment {
         super.onActivityCreated(savedInstanceState);
 
     }
+
 }
