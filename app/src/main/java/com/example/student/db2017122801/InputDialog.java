@@ -11,10 +11,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by student on 2017/12/28.
@@ -22,6 +27,7 @@ import java.io.IOException;
 
 public class InputDialog extends DialogFragment {
     EditText ed;
+    ArrayList<String> data1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,11 +42,31 @@ public class InputDialog extends DialogFragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                File myfile = new File(getActivity().getFilesDir(), "myfile.txt");
+                File myfile = new File(getActivity().getFilesDir(), "data1.txt");
+
+                String str = "";
                 try {
+                    FileReader fr = new FileReader(myfile);
+                    BufferedReader br = new BufferedReader(fr);
+                    str = br.readLine();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (str.equals(""))
+                {
+                    data1 = new ArrayList<String>();
+                }
+                else
+                {
+                    Gson gson = new Gson();
+                    data1 = gson.fromJson(str, data1.getClass());
+                }
+                try {
+                    data1.add(ed.getText().toString());
                     FileWriter fw = new FileWriter(myfile, true);
                     BufferedWriter bw = new BufferedWriter(fw);
-                    bw.write(ed.getText().toString() + "\r\n");
+                    Gson gson = new Gson();
+                    bw.write(gson.toJson(data1));
                     bw.close();
                     fw.close();
                 } catch (IOException e) {
